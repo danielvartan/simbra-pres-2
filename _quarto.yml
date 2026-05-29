@@ -13,10 +13,10 @@ project:
 title: "logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R"
 author: "Daniel Vartanian"
 keyword: >
-  SIMBRA, NetLogo, R (Programming Language), R Package, Agent-Based Modeling,
-  Individual-Based Modeling, Computational Modeling, Simulations,
-  Complex Systems, Complexity Science, Generative Science, ABM Study Group,
-  University of São Paulo
+  SIMBRA, NetLogo, R (Programming Language), R Packages, Reproducible Research,
+  Agent-Based Modeling, Individual-Based Modeling, Computational Modeling,
+  Simulations, Complex Systems, Complexity Science, Generative Science,
+  ABM Study Group, University of São Paulo
 date: 2026-05-29
 date-format: long
 

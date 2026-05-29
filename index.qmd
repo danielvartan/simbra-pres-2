@@ -22,9 +22,9 @@ Esta apresentação tem como objetivo apresentar o [`logolink`](https://danielva
 Tópicos a serem abordados:
 
 1. **R & NetLogo**
-1. **Pera, Mas Já Não Tem?**
-1. **Crise de Reprodutibilidade**
-1. **logolink**
+1. **Mas Já Não Tem?**
+1. **Reprodutibilidade**
+1. **O Pacote**
 1. **Funções Principais**
 1. **Exemplo de Uso**
 1. **NetLogo & [`ggplot2`](https://ggplot2.tidyverse.org/)**
@@ -38,7 +38,7 @@ Tópicos a serem abordados:
 ::: {.notes}
 :::
 
-## {data-menu-title="R 💪 & NetLogo 🐢"}
+## {data-menu-title="R & NetLogo"}
 
 ::: {layout="[1,1]"}
 [![](images/r-logo-animation-1.gif){fig-align="center" style="width: 80%; padding-top: 90px;"}](https://www.r-project.org/)
@@ -54,15 +54,12 @@ Tópicos a serem abordados:
 - R versus Python.
 - R: Criado na academia, para a academia. Python: Criado na indústria, para a indústria.
 - (piada) Quando uma cobra é usada para representar uma plataforma, já dá pra imaginar que tipo de comunidade ela tem, né?
-- [R](https://www.r-project.org/) é uma linguagem de programação **gratuita** e de **código aberto** desenvolvida para análise de dados e geração de gráficos [@ihaka1996].
-- Foi criado a partir da linguagem **S**, por **R**oss Ihaka e **R**obert Gentleman, no departamento de estatística da [Universidade de Auckland](https://www.auckland.ac.nz/) (Nova Zelândia) em 1991 e apresentada à comunidade científica em **1993** [@peng2022].
-- **Da academia, para a academia**.
-
-- Criado por [Uri Wilensky](https://ccl.northwestern.edu/users/uri/) e [Seth Tisue](https://tisue.net/) em 1999, o [NetLogo](https://netlogo.org/) é uma plataforma de modelagem baseada em agentes, projetada para ser fácil de usar e acessível a uma ampla gama de usuários, incluindo aqueles sem experiência prévia em programação [@tisue2004].
-- Desenvolvido tanto para fins educacionais quanto para pesquisa [@tisue2004].
-- Parece fraco, mas entrega muito (Base: [Scala](https://pt.wikipedia.org/wiki/Scala_(linguagem_de_programa%C3%A7%C3%A3o)) & [Java](https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o)))
-- _Low Threshold, No Ceiling_`<br>`{=html}
-[[@papert2020; @tisue2004a]]{style="font-size: 0.75em;"}
+- [R](https://www.r-project.org/) é uma linguagem de programação **gratuita** e de **código aberto** desenvolvida para análise de dados e geração de gráficos.
+- Foi criado a partir da linguagem **S**, por **R**oss Ihaka e **R**obert Gentleman, no departamento de estatística da [Universidade de Auckland](https://www.auckland.ac.nz/) (Nova Zelândia) em 1991 e apresentada à comunidade científica em **1993**.
+- Criado por [Uri Wilensky](https://ccl.northwestern.edu/users/uri/) e [Seth Tisue](https://tisue.net/) em 1999, o [NetLogo](https://netlogo.org/) é uma plataforma de modelagem baseada em agentes, projetada para ser fácil de usar e acessível a uma ampla gama de usuários, incluindo aqueles sem experiência prévia em programação.
+- Desenvolvido tanto para fins educacionais quanto para pesquisa.
+- Parece fraco, mas entrega muito (Base: [Scala](https://pt.wikipedia.org/wiki/Scala_(linguagem_de_programa%C3%A7%C3%A3o)) & [Java](https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o))).
+- _Low Threshold, No Ceiling_.
 :::
 
 ## {data-menu-title="NetLogo 🐢"}
@@ -90,30 +87,7 @@ Tópicos a serem abordados:
 - Os autores do `nlrx` (Jan Salecker, Marco Sciaini , Sebastian Hanss) estão começando a implementar o `logolink` para fazer o heavy lifting.
 :::
 
-## {data-menu-title="Temos um Problema" visibility="hidden"}
-
-![](images/scriberia-reproducible-research.jpg){fig-align="center" style="width: 100%; padding-top: 0px;"}
-
-::: footer
-[Reprodução de @miske2026]
-:::
-
-::: {.notes}
-- **Reprodutibilidade** versus **Replicabilidade** [@bezjak2018]
-:::
-
-## {data-menu-title="Temos um Problema" visibility="hidden" .nostretch}
-
-![](images/fair-data-principles.png){fig-align="center" style="width: 80%; padding-top: 120px;"}
-
-::: footer
-[See @wilkinson2016 for more details]
-:::
-
-::: {.notes}
-:::
-
-## {data-menu-title="Temos um Problema"}
+## {data-menu-title="Reprodutibilidade"}
 
 ![](images/miske-2026-figure-1.webp){fig-align="center" style="width: 100%; padding-top: 50px;"}
 
@@ -123,13 +97,13 @@ Tópicos a serem abordados:
 
 ::: {.notes}
 - Pegue uma das [últimas edições especiais](https://www.nature.com/immersive/d42859-026-00015-y/index.html) da Nature sobre o assunto, que curiosamente saiu no dia 1º de abril de 2026.
-- Crise de reprodutibilidade [@baker2016; @peng2011].
-- **Reprodutibilidade** versus **Replicabilidade** [@bezjak2018]
-- Desenvolvimento de ferramentas abertas e especializadas, capazes de aumentar a transparência e promover a padronização e a reutilização de recursos entre pesquisadores [@berger2024; @ram2019].
-- Ações semelhantes: Protocolo ODD [@grimm2006a; @grimm2020], AgentBlocks [@berger2024], [CoMSES Network](https://www.comses.net/) & Open Modeling Foundation ([OMS](https://www.openmodelingfoundation.org/)).
+- Crise de reprodutibilidade.
+- **Reprodutibilidade** versus **Replicabilidade**.
+- Desenvolvimento de ferramentas abertas e especializadas, capazes de aumentar a transparência e promover a padronização e a reutilização de recursos entre pesquisadores.
+- Ações semelhantes: Protocolo ODD, AgentBlocks, [CoMSES Network](https://www.comses.net/) & Open Modeling Foundation ([OMS](https://www.openmodelingfoundation.org/)).
 :::
 
-## {data-menu-title="logolink" .smaller}
+## {data-menu-title="O Pacote" .smaller}
 
 ::: {layout="[[1], [1,1,1,1]]"}
 [![](images/logolink-hexlogo.svg){fig-align="center" style="width: 20%; padding-top: 0px;"}](https://danielvartan.github.io/logolink/)

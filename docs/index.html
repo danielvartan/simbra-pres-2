@@ -267,9 +267,9 @@
 <p>Tópicos a serem abordados:</p>
 <ol type="1">
 <li><strong>R &amp; NetLogo</strong></li>
-<li><strong>Pera, Mas Já Não Tem?</strong></li>
-<li><strong>Crise de Reprodutibilidade</strong></li>
-<li><strong>logolink</strong></li>
+<li><strong>Mas Já Não Tem?</strong></li>
+<li><strong>Reprodutibilidade</strong></li>
+<li><strong>O Pacote</strong></li>
 <li><strong>Funções Principais</strong></li>
 <li><strong>Exemplo de Uso</strong></li>
 <li><strong>NetLogo &amp; <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a></strong></li>
@@ -288,7 +288,7 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section" class="slide level2" data-menu-title="R 💪 &amp; NetLogo 🐢"><h2></h2>
+      }</style></aside></section><section id="section" class="slide level2" data-menu-title="R &amp; NetLogo"><h2></h2>
 <div class="quarto-layout-panel" data-layout="[1,1]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -309,16 +309,17 @@
 <p>(Animação de <a href="https://twitter.com/allison_horst">Allison Horst</a>)</p>
 </div>
 <aside class="notes"><ul>
-<li><p>R versus Python.</p></li>
-<li><p>R: Criado na academia, para a academia. Python: Criado na indústria, para a indústria.</p></li>
-<li><p>(piada) Quando uma cobra é usada para representar uma plataforma, já dá pra imaginar que tipo de comunidade ela tem, né?</p></li>
-<li><p><a href="https://www.r-project.org/">R</a> é uma linguagem de programação <strong>gratuita</strong> e de <strong>código aberto</strong> desenvolvida para análise de dados e geração de gráficos <span class="citation" data-cites="ihaka1996">(<a href="#/referências" role="doc-biblioref" onclick="">Ihaka &amp; Gentleman, 1996</a>)</span>.</p></li>
-<li><p>Foi criado a partir da linguagem <strong>S</strong>, por <strong>R</strong>oss Ihaka e <strong>R</strong>obert Gentleman, no departamento de estatística da <a href="https://www.auckland.ac.nz/">Universidade de Auckland</a> (Nova Zelândia) em 1991 e apresentada à comunidade científica em <strong>1993</strong> <span class="citation" data-cites="peng2022">(<a href="#/referências" role="doc-biblioref" onclick="">Peng, 2022</a>)</span>.</p></li>
-<li><p><strong>Da academia, para a academia</strong>.</p></li>
-<li><p>Criado por <a href="https://ccl.northwestern.edu/users/uri/">Uri Wilensky</a> e <a href="https://tisue.net/">Seth Tisue</a> em 1999, o <a href="https://netlogo.org/">NetLogo</a> é uma plataforma de modelagem baseada em agentes, projetada para ser fácil de usar e acessível a uma ampla gama de usuários, incluindo aqueles sem experiência prévia em programação <span class="citation" data-cites="tisue2004">(<a href="#/referências" role="doc-biblioref" onclick="">Tisue &amp; Wilensky, 2004a</a>)</span>.</p></li>
-<li><p>Desenvolvido tanto para fins educacionais quanto para pesquisa <span class="citation" data-cites="tisue2004">(<a href="#/referências" role="doc-biblioref" onclick="">Tisue &amp; Wilensky, 2004a</a>)</span>.</p></li>
-<li><p>Parece fraco, mas entrega muito (Base: <a href="https://pt.wikipedia.org/wiki/Scala_(linguagem_de_programa%C3%A7%C3%A3o)">Scala</a> &amp; <a href="https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o)">Java</a>)</p></li>
-<li><p><em>Low Threshold, No Ceiling</em><br><span style="font-size: 0.75em;"><span class="citation" data-cites="papert2020 tisue2004a">(<a href="#/referências" role="doc-biblioref" onclick="">Papert, 2020</a>; <a href="#/referências" role="doc-biblioref" onclick="">Tisue &amp; Wilensky, 2004b</a>)</span></span></p></li>
+<li>R versus Python.</li>
+<li>R: Criado na academia, para a academia. Python: Criado na indústria, para a indústria.</li>
+<li>(piada) Quando uma cobra é usada para representar uma plataforma, já dá pra imaginar que tipo de comunidade ela tem, né?</li>
+<li>
+<a href="https://www.r-project.org/">R</a> é uma linguagem de programação <strong>gratuita</strong> e de <strong>código aberto</strong> desenvolvida para análise de dados e geração de gráficos.</li>
+<li>Foi criado a partir da linguagem <strong>S</strong>, por <strong>R</strong>oss Ihaka e <strong>R</strong>obert Gentleman, no departamento de estatística da <a href="https://www.auckland.ac.nz/">Universidade de Auckland</a> (Nova Zelândia) em 1991 e apresentada à comunidade científica em <strong>1993</strong>.</li>
+<li>Criado por <a href="https://ccl.northwestern.edu/users/uri/">Uri Wilensky</a> e <a href="https://tisue.net/">Seth Tisue</a> em 1999, o <a href="https://netlogo.org/">NetLogo</a> é uma plataforma de modelagem baseada em agentes, projetada para ser fácil de usar e acessível a uma ampla gama de usuários, incluindo aqueles sem experiência prévia em programação.</li>
+<li>Desenvolvido tanto para fins educacionais quanto para pesquisa.</li>
+<li>Parece fraco, mas entrega muito (Base: <a href="https://pt.wikipedia.org/wiki/Scala_(linguagem_de_programa%C3%A7%C3%A3o)">Scala</a> &amp; <a href="https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o)">Java</a>).</li>
+<li>
+<em>Low Threshold, No Ceiling</em>.</li>
 </ul><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -379,19 +380,18 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-4" class="slide level2" data-menu-title="Temos um Problema"><h2></h2>
+      }</style></aside></section><section id="section-2" class="slide level2" data-menu-title="Reprodutibilidade"><h2></h2>
 
 <img data-src="images/miske-2026-figure-1.webp" class="quarto-figure quarto-figure-center r-stretch" style="width: 100%; padding-top: 50px;"><div class="footer">
 <p><span class="citation" data-cites="miske2026">(Reprodução de <a href="#/referências" role="doc-biblioref" onclick="">Miske et al., 2026</a>)</span></p>
 </div>
 <aside class="notes"><ul>
 <li>Pegue uma das <a href="https://www.nature.com/immersive/d42859-026-00015-y/index.html">últimas edições especiais</a> da Nature sobre o assunto, que curiosamente saiu no dia 1º de abril de 2026.</li>
-<li>Crise de reprodutibilidade <span class="citation" data-cites="baker2016 peng2011">(<a href="#/referências" role="doc-biblioref" onclick="">Baker, 2016</a>; <a href="#/referências" role="doc-biblioref" onclick="">Peng, 2011</a>)</span>.</li>
+<li>Crise de reprodutibilidade.</li>
 <li>
-<strong>Reprodutibilidade</strong> versus <strong>Replicabilidade</strong> <span class="citation" data-cites="bezjak2018">(<a href="#/referências" role="doc-biblioref" onclick="">Bezjak et al., 2018</a>)</span>
-</li>
-<li>Desenvolvimento de ferramentas abertas e especializadas, capazes de aumentar a transparência e promover a padronização e a reutilização de recursos entre pesquisadores <span class="citation" data-cites="berger2024 ram2019">(<a href="#/referências" role="doc-biblioref" onclick="">Berger et al., 2024</a>; <a href="#/referências" role="doc-biblioref" onclick="">Ram et al., 2019</a>)</span>.</li>
-<li>Ações semelhantes: Protocolo ODD <span class="citation" data-cites="grimm2006a grimm2020">(<a href="#/referências" role="doc-biblioref" onclick="">Grimm et al., 2006</a>, <a href="#/referências" role="doc-biblioref" onclick="">2020</a>)</span>, AgentBlocks <span class="citation" data-cites="berger2024">(<a href="#/referências" role="doc-biblioref" onclick="">Berger et al., 2024</a>)</span>, <a href="https://www.comses.net/">CoMSES Network</a> &amp; Open Modeling Foundation (<a href="https://www.openmodelingfoundation.org/">OMS</a>).</li>
+<strong>Reprodutibilidade</strong> versus <strong>Replicabilidade</strong>.</li>
+<li>Desenvolvimento de ferramentas abertas e especializadas, capazes de aumentar a transparência e promover a padronização e a reutilização de recursos entre pesquisadores.</li>
+<li>Ações semelhantes: Protocolo ODD, AgentBlocks, <a href="https://www.comses.net/">CoMSES Network</a> &amp; Open Modeling Foundation (<a href="https://www.openmodelingfoundation.org/">OMS</a>).</li>
 </ul><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -402,7 +402,7 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-5" class="slide level2 smaller" data-menu-title="logolink"><h2></h2>
+      }</style></aside></section><section id="section-3" class="slide level2 smaller" data-menu-title="O Pacote"><h2></h2>
 <div class="quarto-layout-panel" data-layout="[[1], [1,1,1,1]]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
@@ -457,8 +457,8 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-6" class="slide level2 smaller" data-menu-title="Instalação e Funções Principais"><h2></h2>
-<div class="quarto-layout-panel" data-layout="[1,1]" style="padding-top: 50px;">
+      }</style></aside></section><section id="section-4" class="slide level2 smaller" data-menu-title="Instalação e Funções Principais"><h2></h2>
+<div class="quarto-layout-panel" style="padding-top: 50px;" data-layout="[1,1]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"logolink"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
@@ -515,7 +515,7 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-7" class="slide level2 smaller" data-menu-title="Exemplo de Uso"><h2></h2>
+      }</style></aside></section><section id="section-5" class="slide level2 smaller" data-menu-title="Exemplo de Uso"><h2></h2>
 <div class="columns">
 <div class="column" style="width: 45%; padding-top: 50px;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>model_path <span class="ot">&lt;-</span></span>
@@ -570,7 +570,7 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-8" class="slide level2 smaller" data-menu-title="Exemplo de Uso"><h2></h2>
+      }</style></aside></section><section id="section-6" class="slide level2 smaller" data-menu-title="Exemplo de Uso"><h2></h2>
 <div style="padding-top: 50px;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>results <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
@@ -605,7 +605,7 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-9" class="slide level2 nostretch" data-menu-title="Exemplo de Uso"><h2></h2>
+      }</style></aside></section><section id="section-7" class="slide level2 nostretch" data-menu-title="Exemplo de Uso"><h2></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img data-src="images/wolf-sheep-model-plot.png" class="quarto-figure quarto-figure-center" style="width: 75%; padding-top: 35px;"></p>
 </figure>
@@ -620,7 +620,7 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-10" class="slide level2 smaller" data-menu-title="NetLogo &amp; ggplot2"><h2></h2>
+      }</style></aside></section><section id="section-8" class="slide level2 smaller" data-menu-title="NetLogo &amp; ggplot2"><h2></h2>
 <div class="quarto-layout-panel" data-layout="[1,1]">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -647,8 +647,18 @@
           width: 1px!important;
           overflow: hidden!important;
           display:block!important;
-      }</style></aside></section><section id="section-11" class="slide level2" data-menu-title="Documentation" data-background-image="images/logolink-vignette-screenshot.png" data-background-position="top left" data-background-size="100%"><h2></h2>
-</section><section id="considerações-finais" class="slide level2 smaller"><h2>Considerações Finais</h2>
+      }</style></aside></section><section id="section-9" class="slide level2" data-menu-title="Documentation" data-background-image="images/logolink-vignette-screenshot.png" data-background-position="top left" data-background-size="100%"><h2></h2>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="considerações-finais" class="slide level2 smaller"><h2>Considerações Finais</h2>
 <p><a href="https://www.gnu.org/licenses/gpl-3.0"><img data-src="images/gplv3-license-badge.svg" style="width: 12%; padding-top: 0px;" alt="License: GPLv3"></a> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img data-src="images/cc-by-nc-sa-4-0-license-badge.svg" style="width: 19%; padding-top: 0px;" alt="License: CC BY 4.0"></a></p>
 <p>Esta apresentação foi criada com o sistema de publicação <a href="https://quarto.org/">Quarto</a>. O código e os materiais estão disponíveis no <a href="https://github.com/danielvartan/simbra-pres-2">GitHub</a>.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -673,50 +683,11 @@
 <p>De acordo com o estilo da American Psychological Association (<a href="https://apastyle.apa.org/">APA</a>), 7. edição.</p>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" style="font-size: 0.75em;" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-baker2016" class="csl-entry" role="listitem">
-Baker, M. (2016). 1,500 scientists lift the lid on reproducibility. <em>Nature</em>, <em>533</em>(7604), 452–454. <a href="https://doi.org/10.1038/533452a">https://doi.org/10.1038/533452a</a>
-</div>
-<div id="ref-berger2024" class="csl-entry" role="listitem">
-Berger, U., Bell, A., Barton, C. M., Chappin, E., Dreßler, G., Filatova, T., Fronville, T., Lee, A., van Loon, E., Lorscheid, I., Meyer, M., Müller, B., Piou, C., Radchuk, V., Roxburgh, N., Schüler, L., Troost, C., Wijermans, N., Williams, T. G., … Grimm, V. (2024). Towards reusable building blocks for agent-based modelling and theory development. <em>Environmental Modelling &amp; Software</em>, <em>175</em>, 106003. <a href="https://doi.org/10.1016/j.envsoft.2024.106003">https://doi.org/10.1016/j.envsoft.2024.106003</a>
-</div>
-<div id="ref-bezjak2018" class="csl-entry" role="listitem">
-Bezjak, S., Clyburne-Sherin, A., Conzett, P., Fernandes, P., Görögh, E., Helbig, K., Kramer, B., Labastida, I., Niemeyer, K., Psomopoulos, F., Ross-Hellauer, T., Schneider, R., Tennant, J., Verbakel, E., Brinken, H., &amp; Heller, L. (2018). <em>Open science training handbook</em>. Zenodo. <a href="https://doi.org/10.5281/ZENODO.1212496">https://doi.org/10.5281/ZENODO.1212496</a>
-</div>
-<div id="ref-grimm2006a" class="csl-entry" role="listitem">
-Grimm, V., Berger, U., Bastiansen, F., Eliassen, S., Ginot, V., Giske, J., Goss-Custard, J., Grand, T., Heinz, S. K., Huse, G., Huth, A., Jepsen, J. U., Jørgensen, C., Mooij, W. M., Müller, B., Pe’er, G., Piou, C., Railsback, S. F., Robbins, A. M., … DeAngelis, D. L. (2006). A standard protocol for describing individual-based and agent-based models. <em>Ecological Modelling</em>, <em>198</em>(1), 115–126. <a href="https://doi.org/10.1016/j.ecolmodel.2006.04.023">https://doi.org/10.1016/j.ecolmodel.2006.04.023</a>
-</div>
-<div id="ref-grimm2020" class="csl-entry" role="listitem">
-Grimm, V., Railsback, S. F., Vincenot, C. E., Berger, U., Gallagher, C., DeAngelis, D. L., Edmonds, B., Ge, J., Giske, J., Groeneveld, J., Johnston, A. S. A., Milles, A., Nabe-Nielsen, J., Polhill, J. G., Radchuk, V., Rohwäder, M.-S., Stillman, R. A., Thiele, J. C., &amp; Ayllón, D. (2020). The <span>ODD</span> protocol for describing agent-based and other simulation models: a second update to improve clarity, replication, and structural realism. <em>Journal of Artificial Societies and Social Simulation</em>, <em>23</em>(2), 7. <a href="https://doi.org/10.18564/jasss.4259">https://doi.org/10.18564/jasss.4259</a>
-</div>
-<div id="ref-ihaka1996" class="csl-entry" role="listitem">
-Ihaka, R., &amp; Gentleman, R. (1996). R: <span>A</span> language for data analysis and graphics. <em>Journal of Computational and Graphical Statistics</em>, <em>5</em>(3), 299–314. <a href="https://doi.org/10.1080/10618600.1996.10474713">https://doi.org/10.1080/10618600.1996.10474713</a>
-</div>
 <div id="ref-miske2026" class="csl-entry" role="listitem">
 Miske, O., Abatayo, A. L., Daley, M., Dirzo, M., Fox, N., Haber, N., Hahn, K. M., Struhl, M. K., Mawhinney, B., Silverstein, P., Stankov, T., Tyner, A. H., Adamkovič, M., Alzahawi, S., Anafinova, S., Awtrey, E., Axxe, E., Bailey, J., Bakker, B. N., … Errington, T. M. (2026). Investigating the reproducibility of the social and behavioural sciences. <em>Nature</em>, <em>652</em>(8108), 126–134. <a href="https://doi.org/10.1038/s41586-026-10203-5">https://doi.org/10.1038/s41586-026-10203-5</a>
 </div>
-<div id="ref-papert2020" class="csl-entry" role="listitem">
-Papert, S. (2020). <em>Mindstorms: <span>Children</span>, computers, and powerful ideas</em>. Basic Books.
-</div>
-<div id="ref-peng2011" class="csl-entry" role="listitem">
-Peng, R. D. (2011). Reproducible research in computational science. <em>Science</em>, <em>334</em>(6060), 1226–1227. <a href="https://doi.org/10.1126/science.1213847">https://doi.org/10.1126/science.1213847</a>
-</div>
-<div id="ref-peng2022" class="csl-entry" role="listitem">
-Peng, R. D. (2022). <em>R programming for data science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience">https://bookdown.org/rdpeng/rprogdatascience</a>
-</div>
-<div id="ref-ram2019" class="csl-entry" role="listitem">
-Ram, K., Boettiger, C., Chamberlain, S., Ross, N., Salmon, M., &amp; Butland, S. (2019). A community of practice around peer review for long-term research software sustainability. <em>Computing in Science &amp; Engineering</em>, <em>21</em>(2), 59–65. <a href="https://doi.org/10.1109/MCSE.2018.2882753">https://doi.org/10.1109/MCSE.2018.2882753</a>
-</div>
-<div id="ref-tisue2004" class="csl-entry" role="listitem">
-Tisue, S., &amp; Wilensky, U. (2004a). <span>NetLogo</span>: <span>A</span> simple environment for modeling complexity. <em>Center for Connected Learning and Computer-Based Modeling</em>. <a href="http://www.ccl.sesp.northwestern.edu/papers/netlogo-iccs2004.pdf">http://www.ccl.sesp.northwestern.edu/papers/netlogo-iccs2004.pdf</a>
-</div>
-<div id="ref-tisue2004a" class="csl-entry" role="listitem">
-Tisue, S., &amp; Wilensky, U. (2004b). <span>NetLogo</span>: <span>Design</span> and implementation of a multi-agent modeling environment. <em>Center for Connected Learning and Computer-Based Modeling</em>. <a href="https://ccl.northwestern.edu/2004/netlogo-swarmfest2004.pdf">https://ccl.northwestern.edu/2004/netlogo-swarmfest2004.pdf</a>
-</div>
 <div id="ref-vartanian2025m" class="csl-entry" role="listitem">
 Vartanian, D., Garcia, L., &amp; Carvalho, A. M. (2026). <em><span>LogoClim</span>: <span>WorldClim</span> in <span>NetLogo</span></em> [Programa de computador]. CoMSES Network. <a href="https://www.comses.net/codebases/bccd451f-76a4-408a-85fd-c5024359ba9a">https://www.comses.net/codebases/bccd451f-76a4-408a-85fd-c5024359ba9a</a>
-</div>
-<div id="ref-wilkinson2016" class="csl-entry" role="listitem">
-Wilkinson, M. D., Dumontier, M., Aalbersberg, Ij. J., Appleton, G., Axton, M., Baak, A., Blomberg, N., Boiten, J.-W., Da Silva Santos, L. B., Bourne, P. E., Bouwman, J., Brookes, A. J., Clark, T., Crosas, M., Dillo, I., Dumon, O., Edmunds, S., Evelo, C. T., Finkers, R., … Mons, B. (2016). The <span>FAIR</span> guiding principles for scientific data management and stewardship. <em>Scientific Data</em>, <em>3</em>(1), 160018. <a href="https://doi.org/10.1038/sdata.2016.18">https://doi.org/10.1038/sdata.2016.18</a>
 </div>
 </div>
 <aside class="notes"><style type="text/css">
