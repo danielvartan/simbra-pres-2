@@ -1,0 +1,9 @@
+docs/** linguist-documentation
+images/** linguist-documentation
+scss/** linguist-documentation
+ttf/** linguist-documentation
+
+.ssh/** linguist-generated
+.vscode/** linguist-generated
+
+csl/** linguist-vendored

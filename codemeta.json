@@ -1,0 +1,70 @@
+{
+  "@context": "https://w3id.org/codemeta/3.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "simbra-pres-2",
+  "dateCreated": "2026-05-28",
+  "applicationCategory": "Presentation",
+  "applicationSubCategory": "Reveal.js Presentation",
+  "name": "logolink: Uma interface para execução de simulações NetLogo a partir do R",
+  "author": [
+    {
+      "@type": "Person",
+      "familyName": "Vartanian",
+      "givenName": "Daniel",
+      "email": "danielvartan@proton.me",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Talent Advertising Agency",
+        "url": "https://talent.com.br"
+      }
+    }
+  ],
+  "copyrightHolder": {
+    "@type": "Organization",
+    "name": "Talent Advertising Agency",
+    "url": "https://talent.com.br"
+  },
+  "maintainer": {
+    "@type": "Person",
+    "familyName": "Vartanian",
+    "givenName": "Daniel",
+    "email": "danielvartan@proton.me"
+  },
+  "description": "",
+  "keywords": [
+    "SIMBRA",
+    "NetLogo",
+    "R (Programming Language)",
+    "R Package",
+    "Agent-Based Modeling",
+    "Individual-Based Modeling",
+    "Computational Modeling",
+    "Simulations",
+    "Complex Systems",
+    "Complexity Science",
+    "Generative Science",
+    "ABM Study Group",
+    "University of São Paulo"
+  ],
+  "codeRepository": "https://github.com/danielvartan/simbra-pres-2",
+  "issueTracker": "https://github.com/danielvartan/simbra-pres-2/issues",
+  "runtimePlatform": "R",
+  "relatedLink": [
+    "https://danielvartan.github.io/simbra-pres-2"
+  ],
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "version": "4.6",
+    "url": "https://www.r-project.org/"
+  },
+  "operatingSystem": [
+    "Linux",
+    "macOS",
+    "Windows"
+  ],
+  "developmentStatus": "active",
+  "readme": "https://github.com/danielvartan/simbra-pres-2/blob/main/README.md",
+  "releaseNotes": "https://github.com/danielvartan/simbra-pres-2/blob/main/NEWS.md",
+  "version": "0.1.0.9000"
+}

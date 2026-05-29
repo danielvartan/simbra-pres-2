@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this document, please cite it as below."
+title: "logolink: Uma interface para execução de simulações NetLogo a partir do R"
+type: software
+authors:
+  - family-names: Vartanian
+    given-names: Daniel
+    email: danielvartan@proton.me
+    orcid: "https://orcid.org/0000-0001-7782-759X"
+repository-code: "https://github.com/danielvartan/simbra-pres-2"
+url: "https://danielvartan.github.io/simbra-pres-2/"
+abstract: >
+  This repository contains the slides from the presentation logolink: Uma
+  Interface para Execução de Simulações NetLogo a Partir do R, delivered on May
+  29, 2026, at the 1st Interdisciplinary Brazilian Symposium on Agent-Based
+  Models (SIMBRA) organized by the ABM Study Group of the University of São
+  Paulo.
+keywords:
+  - SIMBRA
+  - NetLogo
+  - R (Programming Language)
+  - R Package
+  - Agent-Based Modeling
+  - Individual-Based Modeling
+  - Computational Modeling
+  - Simulations
+  - Complex Systems
+  - Complexity Science
+  - Generative Science
+  - ABM Study Group
+  - University of São Paulo
+version: 0.1.0.9000

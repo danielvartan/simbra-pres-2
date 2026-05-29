@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<link href="./images/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="UTF-8">
+<meta name="generator" content="quarto-1.9.36">
+<meta name="author" content="Daniel Vartanian">
+<title>logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+<link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-9a716981abc939d58df055f180dee05c.css">
+<link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<meta property="og:title" content="logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R">
+<meta property="og:description" content="">
+<meta property="og:image" content="/simbra-pres-2/images/og-image.png">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="2400">
+<meta property="og:image:alt " content="SIMBRA">
+<meta property="og:title" content="logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R">
+<meta name="citation_title" content="logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R">
+<meta name="citation_author" content="Daniel Vartanian">
+<meta name="citation_publication_date" content="NaN-NaN-NaN">
+<meta name="citation_cover_date" content="NaN-NaN-NaN">
+<meta name="citation_year" content="NaN">
+<meta name="citation_online_date" content="NaN-NaN-NaN">
+<meta name="citation_fulltext_html_url" content="https://danielvartan.github.io/simbra-pres-2/">
+<meta name="citation_language" content="pt-br">
+<meta name="citation_reference" content="citation_title=1,500 scientists lift the lid on reproducibility;,citation_abstract=Survey sheds light on the &amp;amp;amp;quot;crisis&amp;quot; rocking research.;,citation_author=Monya Baker;,citation_publication_date=2016-05-01;,citation_cover_date=2016-05-01;,citation_year=2016;,citation_issue=7604;,citation_doi=10.1038/533452a;,citation_issn=1476-4687;,citation_volume=533;,citation_language=en-US;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Towards reusable building blocks for agent-based modelling and theory development;,citation_abstract=Despite the increasing use of standards for documenting and testing agent-based models (ABMs) and sharing of open access code, most ABMs are still developed from scratch. This is not only inefficient, but also leads to ad hoc and often inconsistent implementations of the same theories in computational code and delays progress in the exploration of the functioning of complex social-ecological systems (SES). We argue that reusable building blocks (RBBs) known from professional software development can mitigate these issues. An RBB is a submodel that represents a particular mechanism or process that is relevant across many ABMs in an application domain, such as plant competition in vegetation models, or reinforcement learning in a behavioural model. RBBs need to be distinguished from modules, which represent entire subsystems and include more than one mechanism and process. While linking modules faces the same challenges as integrating different models in general, RBBs are “atomic” enough to be more easily re-used in different contexts. We describe and provide examples from different domains for how and why building blocks are used in software development, and the benefits of doing so for the ABM community and to individual modellers. We propose a template to guide the development and publication of RBBs and provide example RBBs that use this template. Most importantly, we propose and initiate a strategy for community-based development, sharing and use of RBBs. Individual modellers can have a much greater impact in their field with an RBB than with a single paper, while the community will benefit from increased coherence, facilitating the development of theory for both the behaviour of agents and the systems they form. We invite peers to upload and share their RBBs via our website - preferably referenced by a DOI (digital object identifier obtained e.g. via Zenodo). After a critical mass of candidate RBBs has accumulated, feedback and discussion can take place and both the template and the scope of the envisioned platform can be improved.;,citation_author=Uta Berger;,citation_author=Andrew Bell;,citation_author=C. Michael Barton;,citation_author=Emile Chappin;,citation_author=Gunnar Dreßler;,citation_author=Tatiana Filatova;,citation_author=Thibault Fronville;,citation_author=Allen Lee;,citation_author=Emiel Loon;,citation_author=Iris Lorscheid;,citation_author=Matthias Meyer;,citation_author=Birgit Müller;,citation_author=Cyril Piou;,citation_author=Viktoriia Radchuk;,citation_author=Nicholas Roxburgh;,citation_author=Lennart Schüler;,citation_author=Christian Troost;,citation_author=Nanda Wijermans;,citation_author=Tim G. Williams;,citation_author=Marie-Christin Wimmler;,citation_author=Volker Grimm;,citation_publication_date=2024-04-01;,citation_cover_date=2024-04-01;,citation_year=2024;,citation_doi=10.1016/j.envsoft.2024.106003;,citation_issn=1364-8152;,citation_volume=175;,citation_language=en-US;,citation_journal_title=Environmental Modelling &amp;amp;amp; Software;,citation_journal_abbrev=Environmental Modelling &amp;amp; Software;">
+<meta name="citation_reference" content="citation_title=Open science training handbook;,citation_author=Sonja Bezjak;,citation_author=April Clyburne-Sherin;,citation_author=Philipp Conzett;,citation_author=Pedro Fernandes;,citation_author=Edit Görögh;,citation_author=Kerstin Helbig;,citation_author=Bianca Kramer;,citation_author=Ignasi Labastida;,citation_author=Kyle Niemeyer;,citation_author=Fotis Psomopoulos;,citation_author=Tony Ross-Hellauer;,citation_author=René Schneider;,citation_author=Jon Tennant;,citation_author=Ellen Verbakel;,citation_author=Helene Brinken;,citation_author=Lambert Heller;,citation_publication_date=2018-04-04;,citation_cover_date=2018-04-04;,citation_year=2018;,citation_doi=10.5281/ZENODO.1212496;,citation_language=en-US;">
+<meta name="citation_reference" content="citation_title=A standard protocol for describing individual-based and agent-based models;,citation_abstract=Simulation models that describe autonomous individual organisms (individual based models, IBM) or agents (agent-based models, ABM) have become a widely used tool, not only in ecology, but also in many other disciplines dealing with complex systems made up of autonomous entities. However, there is no standard protocol for describing such simulation models, which can make them difficult to understand and to duplicate. This paper presents a proposed standard protocol, ODD, for describing IBMs and ABMs, developed and tested by 28 modellers who cover a wide range of fields within ecology. This protocol consists of three blocks (Overview, Design concepts, and Details), which are subdivided into seven elements: Purpose, State variables and scales, Process overview and scheduling, Design concepts, Initialization, Input, and Submodels. We explain which aspects of a model should be described in each element, and we present an example to illustrate the protocol in use. In addition, 19 examples are available in an Online Appendix. We consider ODD as a first step for establishing a more detailed common format of the description of IBMs and ABMs. Once initiated, the protocol will hopefully evolve as it becomes used by a sufficiently large proportion of modellers.;,citation_author=Volker Grimm;,citation_author=Uta Berger;,citation_author=Finn Bastiansen;,citation_author=Sigrunn Eliassen;,citation_author=Vincent Ginot;,citation_author=Jarl Giske;,citation_author=John Goss-Custard;,citation_author=Tamara Grand;,citation_author=Simone K. Heinz;,citation_author=Geir Huse;,citation_author=Andreas Huth;,citation_author=Jane U. Jepsen;,citation_author=Christian Jørgensen;,citation_author=Wolf M. Mooij;,citation_author=Birgit Müller;,citation_author=Guy Pe’er;,citation_author=Cyril Piou;,citation_author=Steven F. Railsback;,citation_author=Andrew M. Robbins;,citation_author=Martha M. Robbins;,citation_author=Eva Rossmanith;,citation_author=Nadja Rüger;,citation_author=Espen Strand;,citation_author=Sami Souissi;,citation_author=Richard A. Stillman;,citation_author=Rune Vabø;,citation_author=Ute Visser;,citation_author=Donald L. DeAngelis;,citation_publication_date=2006-09-15;,citation_cover_date=2006-09-15;,citation_year=2006;,citation_issue=1;,citation_doi=10.1016/j.ecolmodel.2006.04.023;,citation_issn=0304-3800;,citation_volume=198;,citation_language=en-US;,citation_journal_title=Ecological Modelling;,citation_journal_abbrev=Ecological Modelling;">
+<meta name="citation_reference" content="citation_title=The ODD protocol for describing agent-based and other simulation models: A second update to improve clarity, replication, and structural realism;,citation_author=Volker Grimm;,citation_author=Steven F. Railsback;,citation_author=Christian E. Vincenot;,citation_author=Uta Berger;,citation_author=Cara Gallagher;,citation_author=Donald L. DeAngelis;,citation_author=Bruce Edmonds;,citation_author=Jiaqi Ge;,citation_author=Jarl Giske;,citation_author=Jürgen Groeneveld;,citation_author=Alice S. A. Johnston;,citation_author=Alexander Milles;,citation_author=Jacob Nabe-Nielsen;,citation_author=J. Gareth Polhill;,citation_author=Viktoriia Radchuk;,citation_author=Marie-Sophie Rohwäder;,citation_author=Richard A. Stillman;,citation_author=Jan C. Thiele;,citation_author=Daniel Ayllón;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_issue=2;,citation_doi=10.18564/jasss.4259;,citation_issn=1460-7425;,citation_volume=23;,citation_language=en-US;,citation_journal_title=Journal of Artificial Societies and Social Simulation;,citation_journal_abbrev=JASSS;">
+<meta name="citation_reference" content="citation_title=R: A language for data analysis and graphics;,citation_abstract=In this article we discuss our experience designing and implementing a statistical computing language. In developing this new language, we sought to combine what we felt were useful features from two existing computer languages. We feel that the new language provides advantages in the areas of portability, computational efficiency, memory management, and scoping.;,citation_author=Ross Ihaka;,citation_author=Robert Gentleman;,citation_publication_date=1996-09-01;,citation_cover_date=1996-09-01;,citation_year=1996;,citation_issue=3;,citation_doi=10.1080/10618600.1996.10474713;,citation_issn=1061-8600;,citation_volume=5;,citation_language=en-US;,citation_journal_title=Journal of Computational and Graphical Statistics;,citation_publisher=ASA Website;">
+<meta name="citation_reference" content="citation_title=Investigating the reproducibility of the social and behavioural sciences;,citation_abstract=Published claims should be reproducible, yielding the same result when the same analysis is applied&nbsp;to the same data1,2. Here we assess reproducibility in a stratified random sample of 600 papers published from 2009 to 2018 in 62 journals spanning the social and behavioural sciences. The authors of 144 (24.0%, 95% confidence interval (CI) = 20.8–27.6%) papers made data available to assess reproducibility and, for 38 others, we obtained source data to reconstruct the dataset. We assessed 143 out of the 182 available datasets and found that 76.6 (53.6%, 95% CI = 45.8–60.7%) papers were rated as precisely reproducible and 105.0 (73.5%, 95% CI = 66.4–80.0%) were rated as at&nbsp;least approximately reproducible (within 15% of the original effects or within 0.05 of original P values) after inverse weighting each of the 551 claims by the number of claims per paper. We observed higher reproducibility for papers from political science and economics compared with other fields, for more&nbsp;recent papers compared with older papers and for papers from journals that require data sharing. Implementation of measures to verify that research is reproducible is needed to support trustworthiness in the complex enterprise of knowledge production3,4.;,citation_author=Olivia Miske;,citation_author=Anna Lou Abatayo;,citation_author=Mason Daley;,citation_author=Mirka Dirzo;,citation_author=Nicholas Fox;,citation_author=Noah Haber;,citation_author=Krystal M. Hahn;,citation_author=Melissa Kline Struhl;,citation_author=Brinna Mawhinney;,citation_author=Priya Silverstein;,citation_author=Theresa Stankov;,citation_author=Andrew H. Tyner;,citation_author=Matúš Adamkovič;,citation_author=Shilaan Alzahawi;,citation_author=Saule Anafinova;,citation_author=Eli Awtrey;,citation_author=Erick Axxe;,citation_author=James Bailey;,citation_author=Bert N. Bakker;,citation_author=Akshaya Balaji;,citation_author=Gabriel Banik;,citation_author=František Bartoš;,citation_author=Henk Berkman;,citation_author=Zachariah Berry;,citation_author=Felix S. Bethke;,citation_author=Timothy F. Brady;,citation_author=Nate Breznau;,citation_author=Sara Capitan;,citation_author=Tabaré Capitán;,citation_author=Laura Caquelin;,citation_author=Kent Jason Cheng;,citation_author=William J. Chopik;,citation_author=Gwen-Jiro Clochard;,citation_author=Tom Coupé;,citation_author=Jamie Cummins;,citation_author=Elif Gizem Demirag Burak;,citation_author=Jianhua Duan;,citation_author=Kevin M. Esterling;,citation_author=Thomas R. Evans;,citation_author=Nathan Fiala;,citation_author=James Field;,citation_author=Victor Gay;,citation_author=Jing Geng;,citation_author=Johanna Gereke;,citation_author=Ilka Helene Gleibs;,citation_author=Amélie Gourdon-Kanhukamwe;,citation_author=Dmitry Grigoryev;,citation_author=Nicholas Gunby;,citation_author=Paul H. P. Hanel;,citation_author=Sanghyun Hong;,citation_author=Sean Dae Houlihan;,citation_author=Nick Huntington-Klein;,citation_author=Kamil Izydorczak;,citation_author=Kristin Jankowsky;,citation_author=Kai Jonas;,citation_author=Pavol Kačmár;,citation_author=Hansika Kapoor;,citation_author=Sebastian Karcher;,citation_author=Marta Kołczyńska;,citation_author=David Kretschmer;,citation_author=Ljiljana Lazarevic;,citation_author=Katelin E. Leahy;,citation_author=Jessica C. Lee;,citation_author=Christopher Limnios;,citation_author=An-Chiao Liu;,citation_author=John Wills Lloyd;,citation_author=Ruben Lopez-Nicolas;,citation_author=Nigel Mantou Lou;,citation_author=Richard E. Lucas;,citation_author=Maximilian Maier;,citation_author=Daniel J. Mallinson;,citation_author=Marcel Martončik;,citation_author=Michael C. McCall;,citation_author=Nikita Mehta;,citation_author=Esteban Méndez;,citation_author=Johannes Michalak;,citation_author=Daniel C. Molden;,citation_author=Faisal Mushtaq;,citation_author=Claudia Neuendorf;,citation_author=Austin Lee Nichols;,citation_author=Gustav Nilsonne;,citation_author=Ernest O’Boyle;,citation_author=Jeewon Oh;,citation_author=Thomas Ostermann;,citation_author=Abiola Oyebanjo;,citation_author=Radoslaw Panczak;,citation_author=Yuri G. Pavlov;,citation_author=Zoran Pavlović;,citation_author=Noemi Peter;,citation_author=Kim Peters;,citation_author=Nathaniel D. Porter;,citation_author=Mariah Purol;,citation_author=Arathy Puthillam;,citation_author=Marco Ramljak;,citation_author=Arran T. Reader;,citation_author=W. Robert Reed;,citation_author=Jan Philipp Röer;,citation_author=Ivan Ropovik;,citation_author=Alexander O. Savi;,citation_author=Kathleen Schmidt;,citation_author=Landon Schnabel;,citation_author=Eric L. Sevigny;,citation_author=Samuel Shaki;,citation_author=Shishir Shakya;,citation_author=Andrew Soh;,citation_author=Angela Somo;,citation_author=Fatih Sonmez;,citation_author=Eirik Strømland;,citation_author=Jordan W. Suchow;,citation_author=Anna Szabelska;,citation_author=Anirudh Tagat;,citation_author=Melba Verra Tutor;,citation_author=Karolina Urbanska;,citation_author=Pieter Van Dessel;,citation_author=Elisabeth Julie Vargo;,citation_author=Diem Thi Hong Vo;,citation_author=Victor Volkman;,citation_author=Ke Wang;,citation_author=Aaron L. Wichman;,citation_author=Jamal R. Williams;,citation_author=Fabian Winter;,citation_author=Ferdinand Wintermantel;,citation_author=Nan Zhang;,citation_author=Ignazio Ziano;,citation_author=Cristina Zogmaister;,citation_author=Zorana Zupan;,citation_author=Brian A. Nosek;,citation_author=Timothy M. Errington;,citation_publication_date=2026-04;,citation_cover_date=2026-04;,citation_year=2026;,citation_issue=8108;,citation_doi=10.1038/s41586-026-10203-5;,citation_issn=1476-4687;,citation_volume=652;,citation_language=en-US;,citation_journal_title=Nature;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Mindstorms: Children, computers, and powerful ideas;,citation_abstract=In this book, pioneering computer scientist Seymour Papert uses the invention of LOGO, the first child-friendly programming language, to make the case for the value of teaching children with computers. Papert argues that children are more than capable of mastering computers, and that teaching computational processes like de-bugging in the classroom can change the way we learn everything else. He also shows that schools saturated with technology can actually improve socialization and interaction among students and between students and teachers;,citation_author=Seymour Papert;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_isbn=978-1-5416-7512-4;,citation_language=en-US;">
+<meta name="citation_reference" content="citation_title=Reproducible research in computational science;,citation_abstract=Computational science has led to exciting new developments, but the nature of the work has exposed limitations in our ability to evaluate published findings. Reproducibility has the potential to serve as a minimum standard for judging scientific claims when full independent replication of a study is not possible.;,citation_author=Roger D. Peng;,citation_publication_date=2011-12-02;,citation_cover_date=2011-12-02;,citation_year=2011;,citation_issue=6060;,citation_doi=10.1126/science.1213847;,citation_volume=334;,citation_journal_title=Science;,citation_publisher=American Association for the Advancement of Science;">
+<meta name="citation_reference" content="citation_title=R programming for data science;,citation_abstract=The R programming language has become the de facto programming language for data science. Its flexibility, power, sophistication, and expressiveness have made it an invaluable tool for data scientists around the world. This book is about the fundamentals of R programming. You will get started with the basics of the language, learn how to manipulate datasets, how to write functions, and how to debug and optimize code. With the fundamentals provided in this book, you will have a solid foundation on which to build your data science toolbox.;,citation_author=Roger D. Peng;,citation_publication_date=2022-05-31;,citation_cover_date=2022-05-31;,citation_year=2022;,citation_fulltext_html_url=https://bookdown.org/rdpeng/rprogdatascience;,citation_language=en-US;">
+<meta name="citation_reference" content="citation_title=A community of practice around peer review for long-term research software sustainability;,citation_abstract=Scientific open source projects are responsible for enabling many of the major advances in modern science including recent breakthroughs such as the Laser Interferometer Gravitational-Wave Observatory project recognized in the 2017 Nobel Prize for physics. However, much of this software ecosystem is developed ad hoc with no regard for sustainable software development practices. This problem is further compounded by the fact that researchers who develop software have little in the way of resources or academic recognition for their efforts. The rOpenSci Project, founded in 2011 with the explicit mission of developing software to support reproducible science, has in recent years undertaken an effort to improve the long tail of scientific software. In this paper, we describe our software peer-review system, which brings together the best of traditional academic review with new ideas from industry code review.;,citation_author=Karthik Ram;,citation_author=Carl Boettiger;,citation_author=Scott Chamberlain;,citation_author=Noam Ross;,citation_author=Maëlle Salmon;,citation_author=Stefanie Butland;,citation_publication_date=2019-03;,citation_cover_date=2019-03;,citation_year=2019;,citation_issue=2;,citation_doi=10.1109/MCSE.2018.2882753;,citation_issn=1558-366X;,citation_volume=21;,citation_language=en-US;,citation_journal_title=Computing in Science &amp;amp;amp; Engineering;">
+<meta name="citation_reference" content="citation_title=NetLogo: A simple environment for modeling complexity;,citation_abstract=NetLogo [Wilensky, 1999] is a multi-agent programming language and modeling environment for simulating complex phenomena. It is designed for both research and education and is used across a wide range of disciplines and education levels. In this paper we focus on NetLogo as a tool for research and for teaching at the undergraduate level and higher. We outline the principles behind our design and describe recent and planned enhancements.;,citation_author=Seth Tisue;,citation_author=Uri Wilensky;,citation_publication_date=2004-05-16;,citation_cover_date=2004-05-16;,citation_year=2004;,citation_fulltext_html_url=http://www.ccl.sesp.northwestern.edu/papers/netlogo-iccs2004.pdf;,citation_language=en-US;,citation_journal_title=Center for Connected Learning and Computer-Based Modeling;">
+<meta name="citation_reference" content="citation_title=NetLogo: Design and implementation of a multi-agent modeling environment;,citation_author=Seth Tisue;,citation_author=Uri Wilensky;,citation_publication_date=2004-11-09;,citation_cover_date=2004-11-09;,citation_year=2004;,citation_fulltext_html_url=https://ccl.northwestern.edu/2004/netlogo-swarmfest2004.pdf;,citation_language=en-US;,citation_journal_title=Center for Connected Learning and Computer-Based Modeling;">
+<meta name="citation_reference" content="citation_title=LogoClim: WorldClim in NetLogo;,citation_abstract=LogoClim is a NetLogo model for simulating and visualizing global climate conditions. It allows researchers to integrate high-resolution climate data into agent-based models, supporting reproducible research in ecology, agriculture, environmental science, and other fields that rely on climate data integration. The model utilizes raster data to represent climate variables such as temperature and precipitation over time. It incorporates historical data (1951-2024) and future climate projections (2021-2100) derived from global climate models under various Shared Socioeconomic Pathways (SSPs). All climate inputs come from WorldClim 2.1, a widely used source of high-resolution, interpolated climate datasets based on weather station observations worldwide.;,citation_author=Daniel Vartanian;,citation_author=Leandro Garcia;,citation_author=Aline Martins Carvalho;,citation_publication_date=2026;,citation_cover_date=2026;,citation_year=2026;,citation_fulltext_html_url=https://www.comses.net/codebases/bccd451f-76a4-408a-85fd-c5024359ba9a;,citation_publisher=CoMSES Network;">
+<meta name="citation_reference" content="citation_title=The FAIR guiding principles for scientific data management and stewardship;,citation_abstract=There is an urgent need to improve the infrastructure supporting the reuse of scholarly data. A diverse set of stakeholders—representing academia, industry, funding agencies, and scholarly publishers—have come together to design and jointly endorse a concise and measureable set of principles that we refer to as the FAIR Data Principles. The intent is that these may act as a guideline for those wishing to enhance the reusability of their data holdings. Distinct from peer initiatives that focus on the human scholar, the FAIR Principles put specific emphasis on enhancing the ability of machines to automatically find and use the data, in addition to supporting its reuse by individuals. This Comment is the first formal publication of the FAIR Principles, and includes the rationale behind them, and some exemplar implementations in the community.;,citation_author=Mark D. Wilkinson;,citation_author=Michel Dumontier;,citation_author=IJsbrand Jan Aalbersberg;,citation_author=Gabrielle Appleton;,citation_author=Myles Axton;,citation_author=Arie Baak;,citation_author=Niklas Blomberg;,citation_author=Jan-Willem Boiten;,citation_author=Luiz Bonino Da Silva Santos;,citation_author=Philip E. Bourne;,citation_author=Jildau Bouwman;,citation_author=Anthony J. Brookes;,citation_author=Tim Clark;,citation_author=Mercè Crosas;,citation_author=Ingrid Dillo;,citation_author=Olivier Dumon;,citation_author=Scott Edmunds;,citation_author=Chris T. Evelo;,citation_author=Richard Finkers;,citation_author=Alejandra Gonzalez-Beltran;,citation_author=Alasdair J. G. Gray;,citation_author=Paul Groth;,citation_author=Carole Goble;,citation_author=Jeffrey S. Grethe;,citation_author=Jaap Heringa;,citation_author=Peter A. C Hoen;,citation_author=Rob Hooft;,citation_author=Tobias Kuhn;,citation_author=Ruben Kok;,citation_author=Joost Kok;,citation_author=Scott J. Lusher;,citation_author=Maryann E. Martone;,citation_author=Albert Mons;,citation_author=Abel L. Packer;,citation_author=Bengt Persson;,citation_author=Philippe Rocca-Serra;,citation_author=Marco Roos;,citation_author=Rene Van Schaik;,citation_author=Susanna-Assunta Sansone;,citation_author=Erik Schultes;,citation_author=Thierry Sengstag;,citation_author=Ted Slater;,citation_author=George Strawn;,citation_author=Morris A. Swertz;,citation_author=Mark Thompson;,citation_author=Johan Van Der Lei;,citation_author=Erik Van Mulligen;,citation_author=Jan Velterop;,citation_author=Andra Waagmeester;,citation_author=Peter Wittenburg;,citation_author=Katherine Wolstencroft;,citation_author=Jun Zhao;,citation_author=Barend Mons;,citation_publication_date=2016-03-15;,citation_cover_date=2016-03-15;,citation_year=2016;,citation_issue=1;,citation_doi=10.1038/sdata.2016.18;,citation_issn=2052-4463;,citation_volume=3;,citation_language=en-US;,citation_journal_title=Scientific Data;,citation_journal_abbrev=Sci Data;">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#183eff" class="center"><div style="display: flex; align-items: flex-end; justify-content: space-between;">
+    <h1 class="title" style="color: #ffffff; font-size: 7.5rem; line-height: 1; text-align: left; padding-bottom: 0; margin: 0;">
+<span style="color: #ffd000; text-transform: lowercase;">logolink</span><br>NetLogo<br>no R</h1>
+    <div style="text-align: right; padding-bottom: 4px;">
+      <p class="author" style="font-size: 0.75em; margin: 0;">Daniel Vartanian</p>
+      <p class="date" style="font-size: 0.75em; margin: 0;">29 de maio de 2026</p>
+    </div>
+  </div>
+</section><section id="oiê" class="slide level2 smaller"><h2>Oiê! 👋</h2>
+<div class="columns">
+<div class="column" style="width: 47.5%;">
+<p>Esta apresentação tem como objetivo apresentar o <a href="https://danielvartan.github.io/logolink/"><code>logolink</code></a>, uma interface para execução de simulações NetLogo a partir do R.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="images/allison-horst-figure-8.png" class="quarto-figure quarto-figure-center" style="width: 100%; padding-top: 50px;"></p>
+</figure>
+</div>
+</div><div class="column" style="width: 5%;">
+
+</div><div class="column" style="width: 47.5%; text-align: center;">
+<p>Tópicos a serem abordados:</p>
+<ol type="1">
+<li><strong>R &amp; NetLogo</strong></li>
+<li><strong>Pera, Mas Já Não Tem?</strong></li>
+<li><strong>Crise de Reprodutibilidade</strong></li>
+<li><strong>logolink</strong></li>
+<li><strong>Funções Principais</strong></li>
+<li><strong>Exemplo de Uso</strong></li>
+<li><strong>NetLogo &amp; <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a></strong></li>
+</ol>
+</div></div>
+<div class="footer">
+<p>(Arte de <a href="https://twitter.com/allison_horst">Allison Horst</a>)</p>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section" class="slide level2" data-menu-title="R 💪 &amp; NetLogo 🐢"><h2></h2>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://www.r-project.org/"><img data-src="images/r-logo-animation-1.gif" class="quarto-figure quarto-figure-center" style="width: 80%; padding-top: 90px;"></a></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://netlogo.org/"><img data-src="images/netlogo-icon-1.png" class="quarto-figure quarto-figure-center" style="width: 80%; padding-top: 165px;"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>(Animação de <a href="https://twitter.com/allison_horst">Allison Horst</a>)</p>
+</div>
+<aside class="notes"><ul>
+<li><p>R versus Python.</p></li>
+<li><p>R: Criado na academia, para a academia. Python: Criado na indústria, para a indústria.</p></li>
+<li><p>(piada) Quando uma cobra é usada para representar uma plataforma, já dá pra imaginar que tipo de comunidade ela tem, né?</p></li>
+<li><p><a href="https://www.r-project.org/">R</a> é uma linguagem de programação <strong>gratuita</strong> e de <strong>código aberto</strong> desenvolvida para análise de dados e geração de gráficos <span class="citation" data-cites="ihaka1996">(<a href="#/referências" role="doc-biblioref" onclick="">Ihaka &amp; Gentleman, 1996</a>)</span>.</p></li>
+<li><p>Foi criado a partir da linguagem <strong>S</strong>, por <strong>R</strong>oss Ihaka e <strong>R</strong>obert Gentleman, no departamento de estatística da <a href="https://www.auckland.ac.nz/">Universidade de Auckland</a> (Nova Zelândia) em 1991 e apresentada à comunidade científica em <strong>1993</strong> <span class="citation" data-cites="peng2022">(<a href="#/referências" role="doc-biblioref" onclick="">Peng, 2022</a>)</span>.</p></li>
+<li><p><strong>Da academia, para a academia</strong>.</p></li>
+<li><p>Criado por <a href="https://ccl.northwestern.edu/users/uri/">Uri Wilensky</a> e <a href="https://tisue.net/">Seth Tisue</a> em 1999, o <a href="https://netlogo.org/">NetLogo</a> é uma plataforma de modelagem baseada em agentes, projetada para ser fácil de usar e acessível a uma ampla gama de usuários, incluindo aqueles sem experiência prévia em programação <span class="citation" data-cites="tisue2004">(<a href="#/referências" role="doc-biblioref" onclick="">Tisue &amp; Wilensky, 2004a</a>)</span>.</p></li>
+<li><p>Desenvolvido tanto para fins educacionais quanto para pesquisa <span class="citation" data-cites="tisue2004">(<a href="#/referências" role="doc-biblioref" onclick="">Tisue &amp; Wilensky, 2004a</a>)</span>.</p></li>
+<li><p>Parece fraco, mas entrega muito (Base: <a href="https://pt.wikipedia.org/wiki/Scala_(linguagem_de_programa%C3%A7%C3%A3o)">Scala</a> &amp; <a href="https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o)">Java</a>)</p></li>
+<li><p><em>Low Threshold, No Ceiling</em><br><span style="font-size: 0.75em;"><span class="citation" data-cites="papert2020 tisue2004a">(<a href="#/referências" role="doc-biblioref" onclick="">Papert, 2020</a>; <a href="#/referências" role="doc-biblioref" onclick="">Tisue &amp; Wilensky, 2004b</a>)</span></span></p></li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-1" class="slide level2" data-menu-title="NetLogo 🐢"><h2></h2>
+
+<img data-src="images/logoclim-interface.gif" class="quarto-figure quarto-figure-center r-stretch" style="width: 80%; padding-top: 50px;"><div class="footer">
+<p>(Reprodução de <span class="citation" data-cites="vartanian2025m">Vartanian et al. (<a href="#/referências" role="doc-biblioref" onclick="">2026</a>)</span>)</p>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="mas-já-não-tem" class="slide level2 smaller"><h2>Mas Já Não Tem?</h2>
+<div class="quarto-layout-panel" data-layout="[1,1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://danielvartan.github.io/logolink/"><img data-src="images/logolink-hexlogo.svg" class="quarto-figure quarto-figure-center" style="width: 80%; padding-top: 80px;"></a></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://docs.ropensci.org/nlrx/"><img data-src="images/nlrx-hexlogo.png" class="quarto-figure quarto-figure-center" style="width: 80%; padding-top: 80px;"></a></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://cran.r-project.org/package=RNetLogo"><img data-src="images/RNetLogo-logo.png" class="quarto-figure quarto-figure-center" style="width: 100%; padding-top: 150px;"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes"><ul>
+<li>Os autores do <code>nlrx</code> (Jan Salecker, Marco Sciaini , Sebastian Hanss) estão começando a implementar o <code>logolink</code> para fazer o heavy lifting.</li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-4" class="slide level2" data-menu-title="Temos um Problema"><h2></h2>
+
+<img data-src="images/miske-2026-figure-1.webp" class="quarto-figure quarto-figure-center r-stretch" style="width: 100%; padding-top: 50px;"><div class="footer">
+<p><span class="citation" data-cites="miske2026">(Reprodução de <a href="#/referências" role="doc-biblioref" onclick="">Miske et al., 2026</a>)</span></p>
+</div>
+<aside class="notes"><ul>
+<li>Pegue uma das <a href="https://www.nature.com/immersive/d42859-026-00015-y/index.html">últimas edições especiais</a> da Nature sobre o assunto, que curiosamente saiu no dia 1º de abril de 2026.</li>
+<li>Crise de reprodutibilidade <span class="citation" data-cites="baker2016 peng2011">(<a href="#/referências" role="doc-biblioref" onclick="">Baker, 2016</a>; <a href="#/referências" role="doc-biblioref" onclick="">Peng, 2011</a>)</span>.</li>
+<li>
+<strong>Reprodutibilidade</strong> versus <strong>Replicabilidade</strong> <span class="citation" data-cites="bezjak2018">(<a href="#/referências" role="doc-biblioref" onclick="">Bezjak et al., 2018</a>)</span>
+</li>
+<li>Desenvolvimento de ferramentas abertas e especializadas, capazes de aumentar a transparência e promover a padronização e a reutilização de recursos entre pesquisadores <span class="citation" data-cites="berger2024 ram2019">(<a href="#/referências" role="doc-biblioref" onclick="">Berger et al., 2024</a>; <a href="#/referências" role="doc-biblioref" onclick="">Ram et al., 2019</a>)</span>.</li>
+<li>Ações semelhantes: Protocolo ODD <span class="citation" data-cites="grimm2006a grimm2020">(<a href="#/referências" role="doc-biblioref" onclick="">Grimm et al., 2006</a>, <a href="#/referências" role="doc-biblioref" onclick="">2020</a>)</span>, AgentBlocks <span class="citation" data-cites="berger2024">(<a href="#/referências" role="doc-biblioref" onclick="">Berger et al., 2024</a>)</span>, <a href="https://www.comses.net/">CoMSES Network</a> &amp; Open Modeling Foundation (<a href="https://www.openmodelingfoundation.org/">OMS</a>).</li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-5" class="slide level2 smaller" data-menu-title="logolink"><h2></h2>
+<div class="quarto-layout-panel" data-layout="[[1], [1,1,1,1]]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://danielvartan.github.io/logolink/"><img data-src="images/logolink-hexlogo.svg" class="quarto-figure quarto-figure-center" style="width: 20%; padding-top: 0px;"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://cran.r-project.org/"><img data-src="images/cran-logo.png" class="quarto-figure quarto-figure-center" style="width: 70%; padding-top: 25px;"></a></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://ropensci.org/"><img data-src="images/ropensci-hex-logo.png" class="quarto-figure quarto-figure-center" style="width: 70%; padding-top: 0px;"></a></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://tidyverse.org/"><img data-src="images/tidyverse-hexlogo.png" class="quarto-figure quarto-figure-center" style="width: 70%; padding-top: 0px;"></a></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><a href="https://www.go-fair.org/"><img data-src="images/gofair-logo.svg" class="quarto-figure quarto-figure-center" style="width: 100%; padding-top: 75px;"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div style="text-align: center;">
+<p>Facilmente integrado a <a href="https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_de_alto_desempenho">HPCs</a>, workflows (<a href="https://github.com/danielvartan/logoactions">LogoActions</a>), pipelines e notebooks.</p>
+</div>
+<aside class="notes"><ul>
+<li>Camada de abstração entre R e NetLogo que preserva as nomenclaturas e convenções do BehaviorSpace.</li>
+<li>100% <a href="https://www.go-fair.org/">FAIR</a>. Publicado na <a href="https://cran.r-project.org/">CRAN</a> e Revisado por pares pela <a href="https://ropensci.org/">rOpenSci</a>.</li>
+<li>Integrado ao ecossistema <a href="https://tidyverse.org/">Tidyverse</a> e às melhores práticas de desenvolvimento de software.</li>
+<li>Facilmente integrado a <a href="https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_de_alto_desempenho">HPCs</a>, workflows, pipelines e notebooks, promovendo reprodutibilidade e transparência.</li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-6" class="slide level2 smaller" data-menu-title="Instalação e Funções Principais"><h2></h2>
+<div class="quarto-layout-panel" data-layout="[1,1]" style="padding-top: 50px;">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"logolink"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(logolink)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">create_experiment</span>(</span>
+<span id="cb3-2"><a></a>  <span class="at">name =</span> <span class="st">""</span>,</span>
+<span id="cb3-3"><a></a>  <span class="at">repetitions =</span> <span class="dv">1</span>,</span>
+<span id="cb3-4"><a></a>  <span class="at">sequential_run_order =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-5"><a></a>  <span class="at">run_metrics_every_step =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-6"><a></a>  <span class="at">time_limit =</span> <span class="dv">1</span>,</span>
+<span id="cb3-7"><a></a>  <span class="at">pre_experiment =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-8"><a></a>  <span class="at">setup =</span> <span class="st">"setup"</span>,</span>
+<span id="cb3-9"><a></a>  <span class="at">go =</span> <span class="st">"go"</span>,</span>
+<span id="cb3-10"><a></a>  <span class="at">post_run =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-11"><a></a>  <span class="at">post_experiment =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-12"><a></a>  <span class="at">exit_condition =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-13"><a></a>  <span class="at">run_metrics_condition =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-14"><a></a>  <span class="at">metrics =</span> <span class="st">"count turtles"</span>,</span>
+<span id="cb3-15"><a></a>  <span class="at">constants =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-16"><a></a>  <span class="at">sub_experiments =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-17"><a></a>  <span class="at">file =</span> <span class="fu">tempfile</span>(<span class="at">pattern =</span> <span class="st">"experiment-"</span>, <span class="at">fileext =</span> <span class="st">".xml"</span>)</span>
+<span id="cb3-18"><a></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">run_experiment</span>(</span>
+<span id="cb4-2"><a></a>  model_path,</span>
+<span id="cb4-3"><a></a>  <span class="at">setup_file =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-4"><a></a>  <span class="at">experiment =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-5"><a></a>  <span class="at">output =</span> <span class="st">"table"</span>,</span>
+<span id="cb4-6"><a></a>  <span class="at">other_arguments =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-7"><a></a>  <span class="at">timeout =</span> <span class="cn">Inf</span>,</span>
+<span id="cb4-8"><a></a>  <span class="at">tidy_output =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-9"><a></a>  <span class="at">output_dir =</span> <span class="fu">tempdir</span>()</span>
+<span id="cb4-10"><a></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>O <a href="https://danielvartan.github.io/logolink/"><code>logolink</code></a> <span class="light-content" data-fg="#000000" data-bg="#ffd000" style="color: #000000;border-radius: 0.2rem; padding: 0 0.2rem 0 0.2rem;background-color: #ffd000;">&nbsp;detecta automaticamente&nbsp;</span> sua instalação do NetLogo.</p>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-7" class="slide level2 smaller" data-menu-title="Exemplo de Uso"><h2></h2>
+<div class="columns">
+<div class="column" style="width: 45%; padding-top: 50px;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>model_path <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">find_netlogo_home</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a></a>  <span class="fu">file.path</span>(</span>
+<span id="cb5-4"><a></a>    <span class="st">"models"</span>,</span>
+<span id="cb5-5"><a></a>    <span class="st">"IABM Textbook"</span>,</span>
+<span id="cb5-6"><a></a>    <span class="st">"chapter 4"</span>,</span>
+<span id="cb5-7"><a></a>    <span class="st">"Wolf Sheep Simple 5.nlogox"</span></span>
+<span id="cb5-8"><a></a>  )</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>results <span class="ot">&lt;-</span></span>
+<span id="cb6-2"><a></a>  model_path <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a></a>  <span class="fu">run_experiment</span>(</span>
+<span id="cb6-4"><a></a>    <span class="at">setup_file =</span> setup_file</span>
+<span id="cb6-5"><a></a>  )</span>
+<span id="cb6-6"><a></a><span class="co">#&gt; ✔ Running model [13.4s]</span></span>
+<span id="cb6-7"><a></a><span class="co">#&gt; ✔ Gathering metadata [15ms]</span></span>
+<span id="cb6-8"><a></a><span class="co">#&gt; ✔ Processing table output [8ms]</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width: 55%; padding-top: 50px;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>setup_file <span class="ot">&lt;-</span> <span class="fu">create_experiment</span>(</span>
+<span id="cb7-2"><a></a>  <span class="at">name =</span> <span class="st">"Wolf Sheep Simple Model Analysis"</span>,</span>
+<span id="cb7-3"><a></a>  <span class="at">repetitions =</span> <span class="dv">10</span>,</span>
+<span id="cb7-4"><a></a>  <span class="at">run_metrics_every_step =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-5"><a></a>  <span class="at">setup =</span> <span class="st">"setup"</span>,</span>
+<span id="cb7-6"><a></a>  <span class="at">go =</span> <span class="st">"go"</span>,</span>
+<span id="cb7-7"><a></a>  <span class="at">time_limit =</span> <span class="dv">1000</span>,</span>
+<span id="cb7-8"><a></a>  <span class="at">metrics =</span> <span class="fu">c</span>(</span>
+<span id="cb7-9"><a></a>    <span class="st">'count wolves'</span>,</span>
+<span id="cb7-10"><a></a>    <span class="st">'count sheep'</span></span>
+<span id="cb7-11"><a></a>  ),</span>
+<span id="cb7-12"><a></a>  <span class="at">constants =</span> <span class="fu">list</span>(</span>
+<span id="cb7-13"><a></a>    <span class="st">"number-of-sheep"</span> <span class="ot">=</span> <span class="dv">500</span>,</span>
+<span id="cb7-14"><a></a>    <span class="st">"number-of-wolves"</span> <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb7-15"><a></a>      <span class="at">first =</span> <span class="dv">5</span>,</span>
+<span id="cb7-16"><a></a>      <span class="at">step =</span> <span class="dv">1</span>,</span>
+<span id="cb7-17"><a></a>      <span class="at">last =</span> <span class="dv">15</span></span>
+<span id="cb7-18"><a></a>    ),</span>
+<span id="cb7-19"><a></a>    <span class="st">"movement-cost"</span> <span class="ot">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb7-20"><a></a>    <span class="st">"grass-regrowth-rate"</span> <span class="ot">=</span> <span class="fl">0.3</span>,</span>
+<span id="cb7-21"><a></a>    <span class="st">"energy-gain-from-grass"</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb7-22"><a></a>    <span class="st">"energy-gain-from-sheep"</span> <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb7-23"><a></a>  )</span>
+<span id="cb7-24"><a></a>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-8" class="slide level2 smaller" data-menu-title="Exemplo de Uso"><h2></h2>
+<div style="padding-top: 50px;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>results <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span>
+<span id="cb9-2"><a></a><span class="co">#&gt; List of 2</span></span>
+<span id="cb9-3"><a></a><span class="co">#&gt;  $ metadata:List of 6</span></span>
+<span id="cb9-4"><a></a><span class="co">#&gt;   ..$ timestamp       : POSIXct[1:1], format: "2026-02-11 12:46:59"</span></span>
+<span id="cb9-5"><a></a><span class="co">#&gt;   ..$ netlogo_version : chr "7.0.3"</span></span>
+<span id="cb9-6"><a></a><span class="co">#&gt;   ..$ output_version  : chr "2.0"</span></span>
+<span id="cb9-7"><a></a><span class="co">#&gt;   ..$ model_file      : chr "Wolf Sheep Simple 5.nlogox"</span></span>
+<span id="cb9-8"><a></a><span class="co">#&gt;   ..$ experiment_name : chr "Wolf Sheep Simple Model Analysis"</span></span>
+<span id="cb9-9"><a></a><span class="co">#&gt;   ..$ world_dimensions: Named int [1:4] -17 17 -17 17</span></span>
+<span id="cb9-10"><a></a><span class="co">#&gt;   .. ..- attr(*, "names")= chr [1:4] "min-pxcor" "max-pxcor" "min-pycor" "max-pycor"</span></span>
+<span id="cb9-11"><a></a><span class="co">#&gt;  $ table   : tibble [110,110 × 10] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb9-12"><a></a><span class="co">#&gt;   ..$ run_number            : num [1:110110] 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb9-13"><a></a><span class="co">#&gt;   ..$ number_of_sheep       : num [1:110110] 500 500 500 500 500 500 500 500 500 500 ...</span></span>
+<span id="cb9-14"><a></a><span class="co">#&gt;   ..$ number_of_wolves      : num [1:110110] 5 5 5 5 5 5 5 5 5 5 ...</span></span>
+<span id="cb9-15"><a></a><span class="co">#&gt;   ..$ movement_cost         : num [1:110110] 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...</span></span>
+<span id="cb9-16"><a></a><span class="co">#&gt;   ..$ grass_regrowth_rate   : num [1:110110] 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 0.3 ...</span></span>
+<span id="cb9-17"><a></a><span class="co">#&gt;   ..$ energy_gain_from_grass: num [1:110110] 2 2 2 2 2 2 2 2 2 2 ...</span></span>
+<span id="cb9-18"><a></a><span class="co">#&gt;   ..$ energy_gain_from_sheep: num [1:110110] 5 5 5 5 5 5 5 5 5 5 ...</span></span>
+<span id="cb9-19"><a></a><span class="co">#&gt;   ..$ step                  : num [1:110110] 0 1 2 3 4 5 6 7 8 9 ...</span></span>
+<span id="cb9-20"><a></a><span class="co">#&gt;   ..$ count_wolves          : num [1:110110] 5 5 5 5 5 5 5 5 5 5 ...</span></span>
+<span id="cb9-21"><a></a><span class="co">#&gt;   ..$ count_sheep           : num [1:110110] 500 498 497 495 493 492 488 487 486 483 ...</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-9" class="slide level2 nostretch" data-menu-title="Exemplo de Uso"><h2></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="images/wolf-sheep-model-plot.png" class="quarto-figure quarto-figure-center" style="width: 75%; padding-top: 35px;"></p>
+</figure>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-10" class="slide level2 smaller" data-menu-title="NetLogo &amp; ggplot2"><h2></h2>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="images/wolf-sheep-model.gif" class="quarto-figure quarto-figure-center" style="width: 100%; padding-top: 30px;"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="images/ant-model.gif" class="quarto-figure quarto-figure-center" style="width: 100%; padding-top: 30px;"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="section-11" class="slide level2" data-menu-title="Documentation" data-background-image="images/logolink-vignette-screenshot.png" data-background-position="top left" data-background-size="100%"><h2></h2>
+</section><section id="considerações-finais" class="slide level2 smaller"><h2>Considerações Finais</h2>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img data-src="images/gplv3-license-badge.svg" style="width: 12%; padding-top: 0px;" alt="License: GPLv3"></a> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img data-src="images/cc-by-nc-sa-4-0-license-badge.svg" style="width: 19%; padding-top: 0px;" alt="License: CC BY 4.0"></a></p>
+<p>Esta apresentação foi criada com o sistema de publicação <a href="https://quarto.org/">Quarto</a>. O código e os materiais estão disponíveis no <a href="https://github.com/danielvartan/simbra-pres-2">GitHub</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="images/allison-horst-figure-1.png" class="quarto-figure quarto-figure-center" style="width: 80%; padding-top: 40px;"></p>
+</figure>
+</div>
+<div class="footer">
+<p>(Arte de <a href="https://twitter.com/allison_horst">Allison Horst</a>)</p>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="referências" class="slide level2 smaller scrollable"><h2>Referências</h2>
+<div style="font-size: 0.75em;">
+<p>De acordo com o estilo da American Psychological Association (<a href="https://apastyle.apa.org/">APA</a>), 7. edição.</p>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" style="font-size: 0.75em;" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-baker2016" class="csl-entry" role="listitem">
+Baker, M. (2016). 1,500 scientists lift the lid on reproducibility. <em>Nature</em>, <em>533</em>(7604), 452–454. <a href="https://doi.org/10.1038/533452a">https://doi.org/10.1038/533452a</a>
+</div>
+<div id="ref-berger2024" class="csl-entry" role="listitem">
+Berger, U., Bell, A., Barton, C. M., Chappin, E., Dreßler, G., Filatova, T., Fronville, T., Lee, A., van Loon, E., Lorscheid, I., Meyer, M., Müller, B., Piou, C., Radchuk, V., Roxburgh, N., Schüler, L., Troost, C., Wijermans, N., Williams, T. G., … Grimm, V. (2024). Towards reusable building blocks for agent-based modelling and theory development. <em>Environmental Modelling &amp; Software</em>, <em>175</em>, 106003. <a href="https://doi.org/10.1016/j.envsoft.2024.106003">https://doi.org/10.1016/j.envsoft.2024.106003</a>
+</div>
+<div id="ref-bezjak2018" class="csl-entry" role="listitem">
+Bezjak, S., Clyburne-Sherin, A., Conzett, P., Fernandes, P., Görögh, E., Helbig, K., Kramer, B., Labastida, I., Niemeyer, K., Psomopoulos, F., Ross-Hellauer, T., Schneider, R., Tennant, J., Verbakel, E., Brinken, H., &amp; Heller, L. (2018). <em>Open science training handbook</em>. Zenodo. <a href="https://doi.org/10.5281/ZENODO.1212496">https://doi.org/10.5281/ZENODO.1212496</a>
+</div>
+<div id="ref-grimm2006a" class="csl-entry" role="listitem">
+Grimm, V., Berger, U., Bastiansen, F., Eliassen, S., Ginot, V., Giske, J., Goss-Custard, J., Grand, T., Heinz, S. K., Huse, G., Huth, A., Jepsen, J. U., Jørgensen, C., Mooij, W. M., Müller, B., Pe’er, G., Piou, C., Railsback, S. F., Robbins, A. M., … DeAngelis, D. L. (2006). A standard protocol for describing individual-based and agent-based models. <em>Ecological Modelling</em>, <em>198</em>(1), 115–126. <a href="https://doi.org/10.1016/j.ecolmodel.2006.04.023">https://doi.org/10.1016/j.ecolmodel.2006.04.023</a>
+</div>
+<div id="ref-grimm2020" class="csl-entry" role="listitem">
+Grimm, V., Railsback, S. F., Vincenot, C. E., Berger, U., Gallagher, C., DeAngelis, D. L., Edmonds, B., Ge, J., Giske, J., Groeneveld, J., Johnston, A. S. A., Milles, A., Nabe-Nielsen, J., Polhill, J. G., Radchuk, V., Rohwäder, M.-S., Stillman, R. A., Thiele, J. C., &amp; Ayllón, D. (2020). The <span>ODD</span> protocol for describing agent-based and other simulation models: a second update to improve clarity, replication, and structural realism. <em>Journal of Artificial Societies and Social Simulation</em>, <em>23</em>(2), 7. <a href="https://doi.org/10.18564/jasss.4259">https://doi.org/10.18564/jasss.4259</a>
+</div>
+<div id="ref-ihaka1996" class="csl-entry" role="listitem">
+Ihaka, R., &amp; Gentleman, R. (1996). R: <span>A</span> language for data analysis and graphics. <em>Journal of Computational and Graphical Statistics</em>, <em>5</em>(3), 299–314. <a href="https://doi.org/10.1080/10618600.1996.10474713">https://doi.org/10.1080/10618600.1996.10474713</a>
+</div>
+<div id="ref-miske2026" class="csl-entry" role="listitem">
+Miske, O., Abatayo, A. L., Daley, M., Dirzo, M., Fox, N., Haber, N., Hahn, K. M., Struhl, M. K., Mawhinney, B., Silverstein, P., Stankov, T., Tyner, A. H., Adamkovič, M., Alzahawi, S., Anafinova, S., Awtrey, E., Axxe, E., Bailey, J., Bakker, B. N., … Errington, T. M. (2026). Investigating the reproducibility of the social and behavioural sciences. <em>Nature</em>, <em>652</em>(8108), 126–134. <a href="https://doi.org/10.1038/s41586-026-10203-5">https://doi.org/10.1038/s41586-026-10203-5</a>
+</div>
+<div id="ref-papert2020" class="csl-entry" role="listitem">
+Papert, S. (2020). <em>Mindstorms: <span>Children</span>, computers, and powerful ideas</em>. Basic Books.
+</div>
+<div id="ref-peng2011" class="csl-entry" role="listitem">
+Peng, R. D. (2011). Reproducible research in computational science. <em>Science</em>, <em>334</em>(6060), 1226–1227. <a href="https://doi.org/10.1126/science.1213847">https://doi.org/10.1126/science.1213847</a>
+</div>
+<div id="ref-peng2022" class="csl-entry" role="listitem">
+Peng, R. D. (2022). <em>R programming for data science</em>. <a href="https://bookdown.org/rdpeng/rprogdatascience">https://bookdown.org/rdpeng/rprogdatascience</a>
+</div>
+<div id="ref-ram2019" class="csl-entry" role="listitem">
+Ram, K., Boettiger, C., Chamberlain, S., Ross, N., Salmon, M., &amp; Butland, S. (2019). A community of practice around peer review for long-term research software sustainability. <em>Computing in Science &amp; Engineering</em>, <em>21</em>(2), 59–65. <a href="https://doi.org/10.1109/MCSE.2018.2882753">https://doi.org/10.1109/MCSE.2018.2882753</a>
+</div>
+<div id="ref-tisue2004" class="csl-entry" role="listitem">
+Tisue, S., &amp; Wilensky, U. (2004a). <span>NetLogo</span>: <span>A</span> simple environment for modeling complexity. <em>Center for Connected Learning and Computer-Based Modeling</em>. <a href="http://www.ccl.sesp.northwestern.edu/papers/netlogo-iccs2004.pdf">http://www.ccl.sesp.northwestern.edu/papers/netlogo-iccs2004.pdf</a>
+</div>
+<div id="ref-tisue2004a" class="csl-entry" role="listitem">
+Tisue, S., &amp; Wilensky, U. (2004b). <span>NetLogo</span>: <span>Design</span> and implementation of a multi-agent modeling environment. <em>Center for Connected Learning and Computer-Based Modeling</em>. <a href="https://ccl.northwestern.edu/2004/netlogo-swarmfest2004.pdf">https://ccl.northwestern.edu/2004/netlogo-swarmfest2004.pdf</a>
+</div>
+<div id="ref-vartanian2025m" class="csl-entry" role="listitem">
+Vartanian, D., Garcia, L., &amp; Carvalho, A. M. (2026). <em><span>LogoClim</span>: <span>WorldClim</span> in <span>NetLogo</span></em> [Programa de computador]. CoMSES Network. <a href="https://www.comses.net/codebases/bccd451f-76a4-408a-85fd-c5024359ba9a">https://www.comses.net/codebases/bccd451f-76a4-408a-85fd-c5024359ba9a</a>
+</div>
+<div id="ref-wilkinson2016" class="csl-entry" role="listitem">
+Wilkinson, M. D., Dumontier, M., Aalbersberg, Ij. J., Appleton, G., Axton, M., Baak, A., Blomberg, N., Boiten, J.-W., Da Silva Santos, L. B., Bourne, P. E., Bouwman, J., Brookes, A. J., Clark, T., Crosas, M., Dillo, I., Dumon, O., Edmunds, S., Evelo, C. T., Finkers, R., … Mons, B. (2016). The <span>FAIR</span> guiding principles for scientific data management and stewardship. <em>Scientific Data</em>, <em>3</em>(1), 160018. <a href="https://doi.org/10.1038/sdata.2016.18">https://doi.org/10.1038/sdata.2016.18</a>
+</div>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="obrigado" class="slide level2 nostretch"><h2>Obrigado!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="images/allison-horst-figure-3.png" class="quarto-figure quarto-figure-center" style="width: 70%; padding-top: 0px;"></p>
+</figure>
+</div>
+<div class="footer">
+<p>(Arte de <a href="https://twitter.com/allison_horst">Allison Horst</a>)</p>
+</div>
+<aside class="notes"><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section>
+</div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="site_libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="site_libs/revealjs/plugin/quarto-support/support.js"></script><script src="site_libs/revealjs/plugin/notes/notes.js"></script><script src="site_libs/revealjs/plugin/search/search.js"></script><script src="site_libs/revealjs/plugin/zoom/zoom.js"></script><script src="site_libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'pdfMaxPagesPerSlide': 1,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"titleSelector":["h1 h2"],"hideMissingTitles":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiada");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiada");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/danielvartan\.github\.io\/simbra-pres-2\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+                // target, if specified
+                link.setAttribute("target", "_blank");
+                if (link.getAttribute("rel") === null) {
+                  link.setAttribute("rel", "noopener");
+                }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+
+
+</body></html>

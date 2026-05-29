@@ -1,0 +1,68 @@
+meta:
+  name: SIMBRA
+  link:
+    home: https://www.simbra.com.br
+  description: |
+    We are an interdisciplinary community dedicated to advancing Agent-Based
+    Modeling (ABM) in Brazil as a vital tool for investigating complex
+    phenomena. By fostering collaboration between researchers and students
+    across diverse fields, the organization promotes open scientific practices
+    and provides technical training in platforms like NetLogo, Gama, and Mesa to
+    solve contemporary challenges.
+
+color:
+  palette:
+    white: "#ffffff"
+    black: "#000000"
+    blue: "#183eff"
+    yellow: "#ffd000"
+    green: "#00d000"
+    red: "#ff0000"
+    gray: "#3c3c3c"
+    gray-l25: "#686868" # colorspace::lighten("#3c3c3c", 0.25)
+    gray-l50: "#989898" # colorspace::lighten("#3c3c3c", 0.5)
+    gray-l75: "#cacaca" # colorspace::lighten("#3c3c3c", 0.75)
+    gray-l90: "#eaeaea" # colorspace::lighten("#3c3c3c", 0.9)
+    gray-l95: "#f4f4f4" # colorspace::lighten("#3c3c3c", 0.95)
+    dark-green: "#009e2e"
+    light-gray: "#d7d7d7"
+  background: white
+  primary: blue
+  secondary: yellow
+  tertiary: green
+  success: blue
+  info: blue
+  warning: yellow
+  danger: red
+  light: white
+  dark: black
+
+typography:
+  fonts:
+    - family: Montserrat
+      source: google
+      weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+    - family: Roboto
+      source: google
+      weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+    - family: Roboto Mono
+      source: google
+      weight: [100, 200, 300, 400, 500, 600, 700]
+  base:
+    family: Roboto
+    line-height: 1.5
+    weight: normal
+  headings:
+    family: Montserrat
+    color: black
+    line-height: 1.5
+    weight: 800
+  monospace: Roboto Mono
+  monospace-inline:
+    color: black
+    background-color: gray-l90
+  monospace-block:
+    background-color: gray-l90
+  link:
+    color: blue
+    decoration: none
