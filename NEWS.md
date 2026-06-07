@@ -1,4 +1,4 @@
-# v1.0.1 (2026-06-07)
+# v1.1.0.9000 (development version)
 
 - Added a [Zenodo](https://zenodo.org/) [DOI](https://www.doi.org/) to the project.
 
