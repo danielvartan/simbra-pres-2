@@ -6,4 +6,5 @@ ttf/** linguist-documentation
 .ssh/** linguist-generated
 .vscode/** linguist-generated
 
+_extensions linguist-vendored
 csl/** linguist-vendored
