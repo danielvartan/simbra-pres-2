@@ -8,7 +8,7 @@
 
 ## Overview
 
-This repository contains the slides from the presentation _logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R_, delivered on May 29, 2026, at the 1st Interdisciplinary Brazilian Symposium on Agent-Based Models ([SIMBRA](https://simbra.com.br)) organized by the [ABM Study Group of the University of São Paulo](https://abmstudygroup.org).
+This repository contains the slides from the presentation _logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R_, delivered on May 29, 2026, at the 1st Interdisciplinary Brazilian Symposium on Agent-Based Models ([SIMBRA](https://simbra.com.br)).
 
 The slides are available [here](https://danielvartan.github.io/simbra-pres-2/).
 
@@ -20,8 +20,10 @@ After installing the dependencies mentioned above, follow these steps to start d
 
 1. **Clone** this repository to your local machine.
 2. **Open** the project in your preferred [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment).
-3. **Install package dependencies** by running [`renv::restore()`](https://rstudio.github.io/renv/reference/restore.html) in the R console. This will install all required software dependencies.
+3. **Install package dependencies** by running [`renv::restore()`](https://rstudio.github.io/renv/reference/restore.html) in the R console.
 4. **Open** `index.qmd` to start writing.
+
+If you're having issues with [`renv`](https://rstudio.github.io/renv/) (it can be a [little frustrating](https://youtu.be/l01u7Ue9pIQ?si=S44LlHVSufGJ4zdq)), use `renv::deactivate(clean = TRUE)` to completely remove the environment and start fresh.
 
 ## Rendering
 
@@ -33,7 +35,7 @@ After installing all dependencies, run the following command in your terminal fr
 quarto render
 ```
 
-This will activate the rendering process. Once completed, the HTML report will be available in the [`docs`](docs) folder.
+This will activate the rendering process. Once completed, the HTML file will be available in the [`docs`](docs) folder.
 
 ## Citation
 

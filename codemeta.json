@@ -14,39 +14,43 @@
       "email": "danielvartan@proton.me",
       "affiliation": {
         "@type": "Organization",
-        "name": "Talent Advertising Agency",
-        "url": "https://talent.com.br"
-      }
+        "name": "University of São Paulo",
+        "url": "https://www.usp.br"
+      },
+      "@id": "https://orcid.org/0000-0001-7782-759X"
     }
   ],
   "copyrightHolder": {
-    "@type": "Organization",
-    "name": "Talent Advertising Agency",
-    "url": "https://talent.com.br"
+    "@type": "Person",
+    "familyName": "Vartanian",
+    "givenName": "Daniel",
+    "email": "danielvartan@proton.me",
+    "@id": "https://orcid.org/0000-0001-7782-759X"
   },
   "maintainer": {
     "@type": "Person",
     "familyName": "Vartanian",
     "givenName": "Daniel",
-    "email": "danielvartan@proton.me"
+    "email": "danielvartan@proton.me",
+    "@id": "https://orcid.org/0000-0001-7782-759X"
   },
-  "description": "",
+  "description": "This repository contains the slides from the presentation 'logolink: Uma Interface para Execução de Simulações NetLogo a Partir do R', delivered on May 29, 2026, at the 1st Interdisciplinary Brazilian Symposium on Agent-Based Models (SIMBRA).",
   "keywords": [
-    "SIMBRA",
-    "NetLogo",
+    "NetLogo (Programming Language)",
     "R (Programming Language)",
     "R Packages",
     "Reproducible Research",
     "Agent-Based Modeling",
     "Individual-Based Modeling",
-    "Computational Modeling",
+    "Multi-Agent Systems",
     "Simulations",
     "Complex Systems",
     "Complexity Science",
     "Generative Science",
-    "ABM Study Group",
-    "University of São Paulo"
+    "Computational Science",
+    "SIMBRA"
   ],
+  "license": "https://www.gnu.org/licenses/gpl-3.0",
   "codeRepository": "https://github.com/danielvartan/simbra-pres-2",
   "issueTracker": "https://github.com/danielvartan/simbra-pres-2/issues",
   "runtimePlatform": "R",
@@ -64,8 +68,8 @@
     "macOS",
     "Windows"
   ],
-  "developmentStatus": "active",
+  "developmentStatus": "inactive",
   "readme": "https://github.com/danielvartan/simbra-pres-2/blob/main/README.md",
   "releaseNotes": "https://github.com/danielvartan/simbra-pres-2/blob/main/NEWS.md",
-  "version": "0.1.0.9000"
+  "version": "0.1.0"
 }

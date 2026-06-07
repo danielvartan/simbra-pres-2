@@ -10,24 +10,32 @@ authors:
 repository-code: "https://github.com/danielvartan/simbra-pres-2"
 url: "https://danielvartan.github.io/simbra-pres-2/"
 abstract: >
-  This repository contains the slides from the presentation logolink: Uma
-  Interface para Execução de Simulações NetLogo a Partir do R, delivered on May
+  This repository contains the slides from the presentation 'logolink: Uma
+  Interface para Execução de Simulações NetLogo a Partir do R', delivered on May
   29, 2026, at the 1st Interdisciplinary Brazilian Symposium on Agent-Based
-  Models (SIMBRA) organized by the ABM Study Group of the University of São
-  Paulo.
+  Models (SIMBRA).
 keywords:
   - SIMBRA
-  - NetLogo
+  - NetLogo (Programming Language)
   - R (Programming Language)
   - R Packages
   - Reproducible Research
   - Agent-Based Modeling
   - Individual-Based Modeling
-  - Computational Modeling
+  - Multi-Agent Systems
   - Simulations
   - Complex Systems
   - Complexity Science
   - Generative Science
-  - ABM Study Group
-  - University of São Paulo
-version: 0.1.0.9000
+  - Computational Science
+  - SIMBRA
+identifiers:
+  - type: url
+    value: "https://danielvartan.github.io/simbra-pres-2/"
+    description: GitHub Pages Website
+  - type: url
+    value: "https://github.com/danielvartan/simbra-pres-2/"
+    description: GitHub Code Repository
+repository-code: "https://github.com/danielvartan/simbra-pres-2/"
+license: GPL-3.0-or-later
+version: 0.1.0

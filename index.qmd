@@ -3,7 +3,6 @@
 ```{r}
 #| label: setup
 #| include: false
-
 library(here)
 library(rutils) # github.com/danielvartan/rutils
 
@@ -18,16 +17,17 @@ Esta apresentação tem como objetivo apresentar o [`logolink`](https://danielva
 :::
 ::: {.column style="width: 5%;"}
 :::
-::: {.column style="width: 47.5%; text-align: center;"}
+::: {.column style="width: 47.5%;"}
 Tópicos a serem abordados:
 
 1. **R & NetLogo**
 1. **Mas Já Não Tem?**
 1. **Reprodutibilidade**
 1. **O Pacote**
-1. **Funções Principais**
+1. **Instalação e Funções Principais**
 1. **Exemplo de Uso**
 1. **NetLogo & [`ggplot2`](https://ggplot2.tidyverse.org/)**
+1. **Documentação**
 :::
 ::::
 
@@ -43,7 +43,7 @@ Tópicos a serem abordados:
 ::: {layout="[1,1]"}
 [![](images/r-logo-animation-1.gif){fig-align="center" style="width: 80%; padding-top: 90px;"}](https://www.r-project.org/)
 
-[![](images/netlogo-icon-1.png){fig-align="center" style="width: 80%; padding-top: 165px;"}](https://netlogo.org/)
+[![](images/netlogo-icon.png){fig-align="center" style="width: 80%; padding-top: 165px;"}](https://netlogo.org/)
 :::
 
 ::: footer
@@ -51,11 +51,10 @@ Tópicos a serem abordados:
 :::
 
 ::: {.notes}
-- R versus Python.
 - R: Criado na academia, para a academia. Python: Criado na indústria, para a indústria.
 - (piada) Quando uma cobra é usada para representar uma plataforma, já dá pra imaginar que tipo de comunidade ela tem, né?
 - [R](https://www.r-project.org/) é uma linguagem de programação **gratuita** e de **código aberto** desenvolvida para análise de dados e geração de gráficos.
-- Foi criado a partir da linguagem **S**, por **R**oss Ihaka e **R**obert Gentleman, no departamento de estatística da [Universidade de Auckland](https://www.auckland.ac.nz/) (Nova Zelândia) em 1991 e apresentada à comunidade científica em **1993**.
+- Foi criada a partir da linguagem **S**, por **R**oss Ihaka e **R**obert Gentleman, no departamento de estatística da [Universidade de Auckland](https://www.auckland.ac.nz/) (Nova Zelândia) em 1991 e apresentada à comunidade científica em **1993**.
 - Criado por [Uri Wilensky](https://ccl.northwestern.edu/users/uri/) e [Seth Tisue](https://tisue.net/) em 1999, o [NetLogo](https://netlogo.org/) é uma plataforma de modelagem baseada em agentes, projetada para ser fácil de usar e acessível a uma ampla gama de usuários, incluindo aqueles sem experiência prévia em programação.
 - Desenvolvido tanto para fins educacionais quanto para pesquisa.
 - Parece fraco, mas entrega muito (Base: [Scala](https://pt.wikipedia.org/wiki/Scala_(linguagem_de_programa%C3%A7%C3%A3o)) & [Java](https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o))).
@@ -96,9 +95,9 @@ Tópicos a serem abordados:
 :::
 
 ::: {.notes}
-- Pegue uma das [últimas edições especiais](https://www.nature.com/immersive/d42859-026-00015-y/index.html) da Nature sobre o assunto, que curiosamente saiu no dia 1º de abril de 2026.
 - Crise de reprodutibilidade.
 - **Reprodutibilidade** versus **Replicabilidade**.
+- Veja a [última edição especial](https://www.nature.com/immersive/d42859-026-00015-y/index.html) da Nature sobre o assunto, que curiosamente saiu no dia 1º de abril de 2026.
 - Desenvolvimento de ferramentas abertas e especializadas, capazes de aumentar a transparência e promover a padronização e a reutilização de recursos entre pesquisadores.
 - Ações semelhantes: Protocolo ODD, AgentBlocks, [CoMSES Network](https://www.comses.net/) & Open Modeling Foundation ([OMS](https://www.openmodelingfoundation.org/)).
 :::
@@ -125,7 +124,6 @@ Facilmente integrado a [HPCs](https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o
 - Camada de abstração entre R e NetLogo que preserva as nomenclaturas e convenções do BehaviorSpace.
 - 100% [FAIR](https://www.go-fair.org/). Publicado na [CRAN](https://cran.r-project.org/) e Revisado por pares pela [rOpenSci](https://ropensci.org/).
 - Integrado ao ecossistema [Tidyverse](https://tidyverse.org/) e às melhores práticas de desenvolvimento de software.
-- Facilmente integrado a [HPCs](https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_de_alto_desempenho), workflows, pipelines e notebooks, promovendo reprodutibilidade e transparência.
 :::
 
 ## {data-menu-title="Instalação e Funções Principais" .smaller}
