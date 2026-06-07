@@ -55,7 +55,9 @@
   "issueTracker": "https://github.com/danielvartan/simbra-pres-2/issues",
   "runtimePlatform": "R",
   "relatedLink": [
-    "https://danielvartan.github.io/simbra-pres-2"
+    "https://doi.org/10.5281/zenodo.20584890",
+    "https://danielvartan.github.io/simbra-pres-2/",
+    "https://github.com/danielvartan/simbra-pres-2/"
   ],
   "programmingLanguage": {
     "@type": "ComputerLanguage",
@@ -71,5 +73,5 @@
   "developmentStatus": "inactive",
   "readme": "https://github.com/danielvartan/simbra-pres-2/blob/main/README.md",
   "releaseNotes": "https://github.com/danielvartan/simbra-pres-2/blob/main/NEWS.md",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
